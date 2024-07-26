@@ -56,6 +56,7 @@ func getCookies(path string) []Cookie {
 	if err != nil {
 		panic(fmt.Sprintf("Failed to open SQL %s: %s\n", path, err))
 	}
+	defer db.Close()
 
 	err = db.Ping()
 	if err != nil {
@@ -89,6 +90,7 @@ func getEncryptionKey(localStatePath string) []byte {
 	if err != nil {
 		panic(fmt.Sprintf("Failed to open %s with error %s", localStatePath, err))
 	}
+	defer localStateFile.Close()
 
 	fileInfo, err := localStateFile.Stat()
 	if err != nil {
